@@ -1,0 +1,87 @@
+show databases;
+
+create database vitbhopal;
+
+create database vitbhopal1;
+
+drop database vitbhopal1;
+
+use vitbhopal;
+
+create table cse(
+sid int8,
+sname varchar(50),
+smarks int1
+);
+
+create table ece(
+sid int8,
+sname varchar(50),
+smarks int1
+);
+
+create table civil(
+sid int8,
+sname varchar(50),
+smarks int1
+);
+
+show tables from vitbhopal;
+
+select * from cse;
+
+
+
+insert into cse values(101,'harish',80);
+
+select * from cse;
+
+insert into cse values(102,'amar',85);
+insert into cse values(103,'antony',62);
+insert into cse values(104,'akbar',40);
+insert into cse values(105,'dhoni',95);
+
+select * from cse;
+
+show tables in vitbhopal;
+
+select * from cse;
+
+use vitbhopal;
+
+insert into ece values(101,'rohith',100);
+insert into ece values(102,'rutu',72);
+insert into ece values(103,'sky',78);
+insert into ece values(104,'david',84);
+insert into ece values(105,'romanio',80);
+
+select * from ece;
+
+insert into civil values (101,'rahul',76);
+insert into civil values (102,'sameer',73);
+insert into civil values (103,'axar',80);
+insert into civil values (104,'siraj',92);
+insert into civil values (105,'holder',90);
+
+select * from civil;
+
+show tables in vitbhopal;
+
+select * from cse,civil,ece;
+
+use vitbhopal;
+
+create table mech(
+stdid int8,
+stdname varchar(20),
+stdmarks int1,
+stdgrade varchar(10)
+);
+
+show tables in vitbhopal;
+
+select * from mech;
+
+insert into mech values(01,'surya',10,'A');
+
+select *from mech;
