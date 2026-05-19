@@ -21,7 +21,29 @@ desc cse;
 
 alter table cse drop snum2;
 
+use vitbhopal;
 
+select * from cse;
+
+alter table cse rename column snum to sno;
+
+show tables in vitbhopal;
+
+select * from mech;
+
+truncate table mech;
+
+select * from mech;
+
+desc mech;
+
+rename table mech to electrical;
+
+show tables from vitbhopal;
+
+select * from ece;
+
+delete from ece; 
 
 CREATE TABLE Worker (
 	WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -42,32 +64,63 @@ INSERT INTO Worker
 		(006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
 		(007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
 		(008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
-        
-        select * from worker;
+
+select * from worker;
+
+update worker set first_name='dhatri' where worker_id=1;
+
+update worker set last_name='atla',department='ceo' where worker_id=1;
+
+update worker set salary=salary+5000;
+
+delete from worker where worker_id=8;
 
 
-UPDATE worker SET First_name='Jayanth',Last_name='V' WHERE worker_id=1;
+start transaction;
 
-UPDATE worker SET salary = salary+5000; 
+create table dummy(num int);
 
-DELETE FROM worker WHERE worker_id=8;
+insert into dummy value(101);
 
-CREATE TABLE ECE( id int);
+select * from dummy;
 
-START TRANSACTION;
+savepoint time1701;
 
-INSERT INTO ece values(1);
+insert into dummy value(102);
 
-SAVEPOINT point_1;
+savepoint time1702;
 
-INSERT INTO ece values(2);
+rollback to time1701;
 
-SAVEPOINT point_2;
+select * from dummy;
 
-INSERT INTO ece VALUES (3);
+rollback to time1701;
 
-SELECT * FROM ece;
-ROLLBACK TO point_2;
+create table dummy2(num int2);
 
-SELECT FIRST_NAME,SALARY from worker where SALARY <100000;
-SELECT FIRST_NAME,SALARY from worker where SALARY > 100000;
+start transaction;
+
+insert into dummy2 value(101);
+
+savepoint point1;
+
+insert into dummy2 value(102);
+
+savepoint point2;
+
+rollback to point1;
+
+select * from dummy2;
+
+rollback to point2;
+
+insert into dummy2 value(102);
+
+drop table dummy;
+
+show tables from vitbhopal;
+
+select first_name,last_name from worker where salary<200000;
+
+select first_name from worker where salary>100000;
+
