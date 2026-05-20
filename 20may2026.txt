@@ -1,0 +1,154 @@
+show databases;
+
+use vitbhopal;
+
+create table person(
+	sno int unique not null,
+    first_name varchar(30) not null,
+    last_name varchar(20) not null,
+    age int 
+);
+
+desc person;
+
+insert into person values(1,'rajesh','k',18);
+
+select * from person;
+
+insert into person values(2,'rajesh','k',null);
+
+insert into person values(1,'rajesh','k',null);
+
+insert into person values(null,'rajesh','k',18);
+
+insert into person values(3,'ramesh','k',28);
+
+alter table person drop constraint sno;
+
+alter table person add unique(age);
+
+desc person;
+
+alter table person drop age;
+
+desc person;
+
+alter table person add age int;
+
+desc person;
+
+alter table person add check(age>=18);
+
+desc person;
+
+insert into person values(105,'dinesh','c',21);
+
+select * from person;
+
+delete from person where age(210);
+
+desc person;
+
+use vitbhopal;
+
+delete from person;
+
+drop table person;
+
+show tables in vitbhopal;
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int not null,
+    CHECK (Age>=18)
+);
+
+desc persons;
+
+alter table persons add check(age>=18);
+
+insert into persons values(1,'m','suresh',19);
+
+select * from persons;
+
+delete from persons where id=1;
+
+desc persons;
+
+alter table persons modify firstname varchar(255) not null;
+
+desc persons;
+
+alter table persons modify firstname varchar(255) null;
+
+desc persons;
+
+alter table persons modify age int default 19;
+
+alter table persons add primary key(lastname);
+
+desc persons;
+
+alter table persons drop primary key;
+
+desc persons;
+
+
+
+
+
+create table products(
+pid int primary key,
+pname varchar(100) not null,
+prefNo int not null unique
+);
+
+desc products;
+
+insert into products values (102,"furniture",19930);
+select * from products;
+
+ALTER TABLE Persons
+ADD PRIMARY KEY (ID);
+
+ALTER TABLE Persons
+DROP PRIMARY KEY;
+drop table products;
+create table category(
+cid int primary key,
+cname varchar(100) not null
+);
+
+insert into category values (101,'electronics'),(102,'Home App');
+
+select * from category;
+drop table products;
+CREATE TABLE products (
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    cid int, 
+    FOREIGN KEY (cid) REFERENCES category(cid)
+);
+desc products;
+
+delete from category where cid=101;
+
+insert into products values (504,'Power Bank Samsung',64-bit encryption key);
+
+select * from products;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
