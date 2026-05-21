@@ -1,0 +1,83 @@
+use vitbhopal;
+
+create table products1(
+pid int not null unique,
+pname varchar(50) not null,
+cid int,
+foreign key(cid) references category(cid) on delete cascade
+);
+
+insert into products1 values(601,'laptop',101);
+drop table products;
+delete from category where cid=101;
+
+select * from category;
+
+select * from products1;
+
+rename table products1 to product;
+
+show tables in vitbhopal;
+
+drop table product;
+
+create table products(
+pid int not null unique,
+pname varchar(50) not null,
+cid int,
+foreign key(cid) references category(cid) on update cascade
+);
+
+insert into products values(501,'table',102);
+
+select * from products;
+
+update category set cid=101 where cid=102;
+
+drop table products;
+
+create table products(
+pid int not null unique,
+pname varchar(50) not null,
+cid int,
+foreign key(cid) references category(cid) on update cascade on delete cascade
+);
+
+select first_name, salary from worker where department='admin' order by salary asc;
+
+select * from worker;
+
+select first_name, salary from worker where department='admin' order by salary desc;
+
+
+select department,sum(salary) from worker group by department order by department asc;
+
+select department,sum(salary) from worker group by department order by sum(salary) asc;
+
+select department,count(department) from worker group by department having count(department)>2 order by count(department) asc;
+
+select * from worker;
+
+select department,sum(salary) from worker group by department having sum(salary)>300000 order by sum(salary) asc;
+
+select first_name, salary from worker where salary>300000 order by salary asc;
+
+select * from worker limit 2;
+
+select * from worker limit 3 offset 2;
+
+create table toppers(id int);
+
+insert into toppers values(1);
+
+insert into toppers values(3);
+
+select first_name,department from worker where worker_id in (select * from toppers);
+
+select department,sum(salary) from worker group by department having sum(salary)>300000 order by sum(salary) asc limit 2;
+
+select department,sum(salary) from worker group by department order by sum(salary) asc limit 2;
+
+select first_name, department,salary from worker where department='admin' order by salary asc limit 1;
+
+select first_name, department,salary from worker where department='admin' order by salary desc limit 1 offset 1;
