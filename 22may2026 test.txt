@@ -29,4 +29,4 @@ ans. select department from worker group by department having count(department)<
 ans. select department,count(department) from worker group by department;
 
 11. Write an SQL query to print the name of employees having the highest salary in each department.
-ans. select * from worker w where w.salary=(select max(salary) from worker where department = w.department);
+ans. select first_name,salary,department from worker where salary in (select max(salary) from worker group by department);
