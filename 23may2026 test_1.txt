@@ -1,0 +1,57 @@
+1.List the name of each employee along with their job title and department name.
+ans. select e.name as employee_name, j.job_title, d.dept_name from employees e join jobs j on e.job_id = j.job_id join departments d on e.dept_id = d.dept_id; 
+
+2. Find all employees whose salary is higher than the average salary of the 'IT' department.
+ans. select name, salary from employees where salary > (select avg(e.salary) from employees e join departments d on e.dept_id = d.dept_id where d.dept_name = 'it');
+
+3. Calculate the total salary expenditure for each department name (not ID).
+ans. select d.dept_name, sum(e.salary) as total_expenditure from departments d left join employees e on d.dept_id = e.dept_id group by d.dept_name;
+
+4. Display departments that have more than 2 employees and an average salary above 70,000.
+ans. select d.dept_name from departments d join employees e on d.dept_id = e.dept_id group by d.dept_name having count(e.emp_id) > 2 and avg(e.salary) > 70000;
+
+5. Retrieve a list of employee names and their respective manager's names.
+ans. select e.name as employee_name, m.name as manager_name from employees e left join employees m on e.manager_id = m.emp_id; 
+
+6.Find the top 3 highest-paid employees and list them in descending order.
+ans. select name, salary from employees order by salary desc limit 3;
+
+7. Find all Developers working in the 'San Francisco' location.
+ans. select e.name from employees e join jobs j on e.job_id = j.job_id join departments d on e.dept_id = d.dept_id where j.job_title = 'developer' and d.location = 'san francisco'; 
+
+9.List job titles where the maximum salary of an employee in that role is less than 100,000.
+ans. select j.job_title from jobs j join employees e on j.job_id = e.job_id group by j.job_title having max(e.salary) < 100000;
+
+10.Find the names of employees who work in the same department as 'David'.
+ans. select name from employees where dept_id = (select dept_id from employees where name = 'david') and name <> 'david';
+
+11. Show all department names even if they have no employees assigned to them.
+ans. select d.dept_name, count(e.emp_id) as total_employees from departments d left join employees e on d.dept_id = e.dept_id group by d.dept_name;
+
+12. Find employees who were hired between 2018 and 2020 and earn more than 60,000.
+ans. select name, hire_date, salary from employees where hire_date between '2018-01-01' and '2020-12-31' and salary > 60000;
+
+13. Find employees who earn more than the average salary of their own department.
+ans. select e1.name, e1.salary, e1.dept_id from employees e1 where e1.salary > (select avg(e2.salary) from employees e2 where e2.dept_id = e1.dept_id);
+
+14. Find the job title and salary of the employee with ID 504.
+ans. select j.job_title, e.salary from employees e join jobs j on e.job_id = j.job_id where e.emp_id = 504;
+
+15.For each manager (by ID), find the minimum salary of the people reporting to them.
+ans. select manager_id, min(salary) as min_reportee_salary from employees where manager_id is not null group by manager_id;
+
+16.List departments that do not have any 'Analysts'.
+ans. select dept_name from departments where dept_id not in (select distinct dept_id from employees e join jobs j on e.job_id = j.job_id where j.job_title = 'analyst' and 
+dept_id is not null);
+
+17. Find the difference between the highest and lowest salary in the company.
+ans.  select max(salary) - min(salary) as salary_difference from employees;
+
+18. Display employee names and hire dates, sorted by department name (A-Z) and then by salary (High to Low).
+ans. select e.name, d.dept_name, e.salary, e.hire_date from employees e join departments d on e.dept_id = d.dept_id order by d.dept_name asc, e.salary desc;
+
+19. Identify managers (by ID) who manage more than 2 people.
+ans. select manager_id, count(emp_id) as reportees_count from employees where manager_id is not null group by manager_id having count(emp_id) > 2;
+
+20.Find the employee(s) with the third-highest salary.
+ans. select name, salary from employees where salary = (select distinct salary from employees order by salary desc limit 1 offset 2); 

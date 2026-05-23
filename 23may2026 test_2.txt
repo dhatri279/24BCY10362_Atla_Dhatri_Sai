@@ -1,0 +1,50 @@
+1.List the Employee Name, their Department Name, and the Location Name for all employees.
+ans. select e.employee_name, d.dept_name, d.location_id from employees e join departments d on e.dept_id = d.dept_id;
+
+2.Retrieve the Project Name, Client Name, and the Total Hours Worked on that project, but only for projects managed by the 'Consulting' department.
+ans. select p.project_name, p.client_name, sum(a.hours_worked) from projects p join departments d on p.dept_id = d.dept_id left join assignments a on p.project_id = a.project_id where d.dept_name = 'consulting' group by p.project_id, p.project_name, p.client_name;
+
+3.Find the names of Employees who have worked on a project with Client Name 'GlobalTech Solutions'. List the Employee Name and Project Name.
+ans. select e.employee_name, p.project_name from employees e join assignments a on e.employee_id = a.employee_id join projects p on a.project_id = p.project_id where 
+p.client_name = 'globaltech solutions';
+
+4.List all Departments that have no Employees currently assigned to them.
+ans. select d.dept_name from departments d left join employees e on d.dept_id = e.dept_id where e.employee_id is null;
+
+6.Calculate the Average Hours Worked per Employee across all projects. List the Employee Name and the average hours.
+ans. select e.employee_name, avg(a.hours_worked) from employees e join assignments a on e.employee_id = a.employee_id group by e.employee_id, e.employee_name;
+
+7.Find the Department Name(s) that have an average salary above the company-wide average salary.
+ans. select d.dept_name from departments d join employees e on d.dept_id = e.dept_id group by d.dept_id, d.dept_name having avg(e.salary) > (select avg(salary) from employees);
+
+8.Identify the Client Name(s) whose projects have a total combined hours worked exceeding 500 hours.
+ans. select p.client_name from projects p join assignments a on p.project_id = a.project_id group by p.client_name having sum(a.hours_worked) > 500;
+
+10.Calculate the total number of employees assigned to each Project, but only include projects that have more than 5 employees assigned.
+ans. select p.project_name, count(distinct a.employee_id) from projects p join assignments a on p.project_id = a.project_id group by p.project_id, p.project_name having 
+count(distinct a.employee_id) > 5;
+
+12.Retrieve the Department Name(s) that have employees assigned to more than one project.
+ans. select distinct d.dept_name from departments d join employees e on d.dept_id = e.dept_id join assignments a on e.employee_id = a.employee_id group by e.employee_id, d.dept_name having count(distinct a.project_id) > 1;
+
+13.Write a query to list the Employee Name and Project Name for any employee who has worked less than 10 hours on a project.
+ans. select e.employee_name, p.project_name from employees e join assignments a on e.employee_id = a.employee_id join projects p on a.project_id = p.project_id where a.hours_worked < 10;
+
+14.Find the Project Name(s) that have no assigned employees.
+ans. select p.project_name from projects p left join assignments a on p.project_id = a.project_id where a.assignment_id is null;
+
+16.Assuming the Assignments table has a start_date column, find the Employee Name and their oldest project start date.
+ans. select e.employee_name, min(a.start_date) from employees e join assignments a on e.employee_id = a.employee_id group by e.employee_id, e.employee_name;
+
+17.Write a MySQL query using the DATE_FORMAT function to list all projects that were active in the year 2023.
+ans. select project_name from projects where date_format(start_date, '%y') = '2023';
+
+18.Use the MySQL-specific IFNULL function to list all Employee Names. If an employee has no manager, display "CEO" instead of NULL.
+ans. select employee_name, ifnull(manager_id, 'ceo') from employees;
+
+19.Find the top 3 Departments based on the total hours worked by all their employees across all projects.
+ans. select d.dept_name from departments d join employees e on d.dept_id = e.dept_id join assignments a on e.employee_id = a.employee_id group by d.dept_id, d.dept_name order by sum(a.hours_worked) desc limit 3;
+
+20.Display the Project Name and a status ("High Activity" if total hours > 300, "Normal" otherwise) using the CASE statement.
+ans. select p.project_name, case when sum(a.hours_worked) > 300 then 'high activity' else 'normal' end as status from projects p left join assignments a on p.project_id = a.project_id group by p.project_id, p.project_name;
+
