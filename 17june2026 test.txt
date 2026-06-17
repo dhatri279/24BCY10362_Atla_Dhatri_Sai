@@ -1,0 +1,106 @@
+Q1. Insert one employee document.
+ans. db.employees.insertOne({
+    empId: 101,
+    name: "Arun",
+    age: 25,
+    department: "IT",
+    salary: 45000,
+    city: "Chennai",
+    experience: 3,
+    skills: ["Java","MongoDB","Spring"],
+    active: true
+})
+
+Q2. Insert multiple employee documents.
+ans. db.employees.insertMany([
+{
+    empId: 101,
+    name: "Arun",
+    age: 25,
+    department: "IT",
+    salary: 45000,
+    city: "Chennai",
+    experience: 3,
+    skills: ["Java","MongoDB","Spring"],
+    active: true
+},
+{
+    empId: 102,
+    name: "Priya",
+    age: 28,
+    department: "HR",
+    salary: 55000,
+    city: "Bangalore",
+    experience: 5,
+    skills: ["Recruitment","Training"],
+    active: true
+}]);
+
+Q3. Find one employee from IT department.
+ans. db.employees.find({department:"IT"}).limit(1)
+
+Q4. Display all employees.
+ans. db.employees.find()
+
+Q5. Display only name and salary.
+ans. db.employees.find({},{name:1,salary:1})
+
+Q6. Find employees with salary equal to 50000.
+ans. db.employees.find({salary:{$eq:50000}})
+
+Q7. Find employees with salary less than 60000.
+ans. db.employees.find({salary:{$lt:60000}})
+
+Q8. Find employees with salary greater than or equal to 60000.
+ans. db.employees.find({salary:{$gte:60000}})
+
+Q9. Find employees whose age is not equal to 30.
+ans. db.employees.find({age:{$ne:30}})
+
+Q10. Find employees from Chennai or Mumbai.
+ans. db.employees.find({$or:[{city:"Mumbai"},{city:"Chennai"}]})
+
+Q11. Find employees not from Chennai.
+ans. db.employees.find({city:{$ne:"Chennai"}})
+
+Q12. Find IT employees with salary > 50000.
+ans. db.employees.find({$and:[{department:"IT"},{salary:{$gt:50000}}]})
+
+Q13. Find employees from Chennai OR Bangalore.
+ans. db.employees.find({$or:[{city:"Bangalore"},{city:"Chennai"}]})
+
+Q14. Find employees NOT earning above 60000.
+ans. db.employees.find({salary:{$lte:60000}})
+
+Q15. Find employees neither in IT nor HR.
+ans. db.employees.find({department:{$nin:["IT","HR"]}})
+
+Q16. Find documents containing experience field.
+ans. db.employees.find({experience:{$exists:true}})
+
+Q17. Find documents where salary is Integer.
+ans. db.employees.find({salary:{$type:"int"}})
+
+Q18. Find employees having MongoDB skill.
+ans. db.employees.find({skills:"MongoDB"})
+
+Q19. Find employees having both MongoDB and AWS.
+ans. db.employees.find({$and:[{skills:"MongoDB"},{skills:"AWS"}]})
+
+Q20. Find employees with exactly 3 skills.
+ans. db.employees.find({ skills: { $size: 3 } })
+
+Q21. Find employees having Java skill using elemMatch.
+ans. db.employees.find({ skills: { $elemMatch: { $eq: "Java" } } })
+
+Q22. Display employees sorted by salary descending.
+ans. db.employees.find({},{salary:1}).sort({salary:-1})
+
+Q23. Display top 3 highest paid employees.
+ans. db.employees.find({},{salary:1}).sort({salary:-1}).limit(3)
+
+Q24. Increase salary of employee 101 by 5000.
+ans. db.employees.updateOne({ empId: 101 }, { $inc: { salary: 5000 } })
+
+Q25. Increase salary of all IT employees by 10%.
+ans. db.employees.updateMany({ department: "IT" },{ $mul: { salary: 1.1 } })
